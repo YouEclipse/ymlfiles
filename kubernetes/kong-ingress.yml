@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kong-ingress
+spec:
+  rules:
+    - host: blog.golang.im
+      http:
+        paths:
+          - backend:
+              serviceName: blog
+              servicePort: 80
