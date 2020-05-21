@@ -1,0 +1,150 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kong
+
+---
+# Source: caddy-ingress-controller/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  namespace: kong
+  labels:
+    app: caddy-ingress-controller
+    chart: "caddy-ingress-controller-v0.1.0"
+    release: "RELEASE-NAME"
+    heritage: "Helm"
+    version: v0.1.0
+  name: caddy-ingress-controller
+---
+# Source: caddy-ingress-controller/templates/clusterrole.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: caddy-ingress-controller-role
+  namespace: kong
+rules:
+  - apiGroups:
+      - ""
+      - "networking.k8s.io"
+    resources:
+      - ingresses
+      - ingresses/status
+      - secrets
+    verbs: ["*"]
+  - apiGroups:
+      - ""
+    resources:
+      - services
+      - pods
+      - nodes
+      - routes
+      - extensions
+    verbs:
+      - list
+      - get
+      - watch
+---
+# Source: caddy-ingress-controller/templates/clusterrolebinding.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: caddy-ingress-controller-role-binding
+  namespace: kong
+roleRef:
+  kind: ClusterRole
+  name: caddy-ingress-controller-role
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+  - kind: ServiceAccount
+    name: caddy-ingress-controller
+    namespace: kong
+---
+# Source: caddy-ingress-controller/templates/loadbalancer.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: caddy-ingress-controller
+  namespace: kong
+  labels:
+    app: caddy-ingress-controller
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: http
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: https
+  selector:
+    app: caddy-ingress-controller
+  type: "LoadBalancer"
+---
+# Source: caddy-ingress-controller/templates/deployment.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: caddy-ingress-controller
+  namespace: kong
+  labels:
+    app: caddy-ingress-controller
+    chart: "caddy-ingress-controller-v0.1.0"
+    release: "RELEASE-NAME"
+    heritage: "Helm"
+    version: v0.1.0
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: caddy-ingress-controller
+      release: "RELEASE-NAME"
+  template:
+    metadata:
+      labels:
+        app: caddy-ingress-controller
+        chart: "caddy-ingress-controller-v0.1.0"
+        release: "RELEASE-NAME"
+        heritage: "Helm"
+        version: v0.1.0
+    spec:
+      serviceAccountName: caddy-ingress-controller
+      containers:
+        - name: caddy-ingress-controller
+          image: "caddy/ingress"
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: true
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - NET_BIND_SERVICE
+            # www-data -> 33
+            runAsUser: 0
+            runAsGroup: 0
+          ports:
+            - name: http
+              containerPort: 80
+            - name: https
+              containerPort: 443
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+          args:
+            - -tls
+            - -email=chuiyouwu@gmail.com
+      volumes:
+        - name: tmp
+          emptyDir: {}

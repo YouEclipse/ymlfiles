@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: caddy-ingress
+  namespace: kong
+spec:
+  rules:
+    - host: blog.golang.im
+      http:
+        paths:
+          - backend:
+              serviceName: blog
+              servicePort: 80
