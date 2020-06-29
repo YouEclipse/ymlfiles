@@ -4,6 +4,7 @@ metadata:
   labels:
     app: blog
   name: blog
+  namespace: caddy-system
 spec:
   ports:
     - port: 80
@@ -24,6 +25,7 @@ metadata:
   labels:
     app: blog
   name: blog
+  namespace: caddy-system
 spec:
   replicas: 1
   selector:

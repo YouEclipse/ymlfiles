@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: caddy-ingress
-  namespace: kong
+  namespace: caddy-system
 spec:
   rules:
     - host: blog.golang.im
@@ -11,3 +11,7 @@ spec:
           - backend:
               serviceName: blog
               servicePort: 80
+  # tls:
+  # - hosts:
+  #   - blog.golang.im
+  #   secretName: golangim # use mycerts for host test.com
