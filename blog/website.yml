@@ -2,9 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: blog
-  name: blog
-  namespace: kube-system
+    app: website
+  name: website
+  namespace: golang-im
 spec:
   ports:
     - port: 80
@@ -16,29 +16,29 @@ spec:
       protocol: TCP
       targetPort: 443
   selector:
-    app: blog
+    app: website
   type: NodePort
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: blog
-  name: blog
-  namespace: kube-system
+    app: website
+  name: website
+  namespace: golang-im
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: blog
+      app: website
   strategy: {}
   template:
     metadata:
       labels:
-        app: blog
+        app: website
     spec:
       containers:
-        - image: youeclipse/blog:latest
-          name: blog
+        - image: youeclipse/golang.im:latest
+          name: website
           ports:
             - containerPort: 80

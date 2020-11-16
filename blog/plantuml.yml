@@ -2,43 +2,45 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: blog
-  name: blog
+    app: plantuml
+  name: plantuml
   namespace: kube-system
 spec:
   ports:
     - port: 80
       name: http
       protocol: TCP
-      targetPort: 80
+      targetPort: 8080
     - port: 443
       name: https
       protocol: TCP
-      targetPort: 443
+      targetPort: 8080
   selector:
-    app: blog
+    app: plantuml
   type: NodePort
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: blog
-  name: blog
+    app: plantuml
+  name: plantuml
   namespace: kube-system
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: blog
+      app: plantuml
   strategy: {}
   template:
     metadata:
       labels:
-        app: blog
+        app: plantuml
     spec:
       containers:
-        - image: youeclipse/blog:latest
-          name: blog
+        - image: plantuml/plantuml-server:tomcat
+          name: plantuml
           ports:
-            - containerPort: 80
+            - containerPort: 8080
+
+          resources: {}

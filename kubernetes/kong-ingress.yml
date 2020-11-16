@@ -10,3 +10,29 @@ spec:
           - backend:
               serviceName: blog
               servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: plantuml-ingress
+spec:
+  rules:
+    - host: plantuml.golang.im
+      http:
+        paths:
+          - backend:
+              serviceName: plantuml
+              servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kong-ingress
+spec:
+  rules:
+    - host: golang.im
+      http:
+        paths:
+          - backend:
+              serviceName: website
+              servicePort: 80
