@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: codeserver
+  name: codeserver
+  namespace: develop
+spec:
+  ports:
+    - port: 80
+      name: http
+      protocol: TCP
+      targetPort: 8080
+    - port: 443
+      name: https
+      protocol: TCP
+      targetPort: 443
+  selector:
+    app: codeserver
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: codeserver
+  name: codeserver
+  namespace: develop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: codeserver
+  template:
+    metadata:
+      labels:
+        app: codeserver
+    spec:
+      serviceAccountName: code-server
+      automountServiceAccountToken: true
+      containers:
+        - image: codercom/code-server:latest
+          name: codeserver
+          ports:
+            - containerPort: 8080
+          env:
+          - name: PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: code-server
+                key: password

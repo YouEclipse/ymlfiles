@@ -27,7 +27,7 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: kong-ingress
+  name: website-ingress
 spec:
   rules:
     - host: golang.im

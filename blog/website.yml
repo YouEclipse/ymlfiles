@@ -4,7 +4,7 @@ metadata:
   labels:
     app: website
   name: website
-  namespace: golang-im
+  namespace: kube-system
 spec:
   ports:
     - port: 80
@@ -25,7 +25,7 @@ metadata:
   labels:
     app: website
   name: website
-  namespace: golang-im
+  namespace: kube-system
 spec:
   replicas: 1
   selector:

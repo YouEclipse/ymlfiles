@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: code-server-ingress
+  namespace: develop
+spec:
+  rules:
+    - host: code.golang.im
+      http:
+        paths:
+          - backend:
+              serviceName: codeserver
+              servicePort: 80
