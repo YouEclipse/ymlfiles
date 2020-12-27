@@ -20,27 +20,51 @@ spec:
   type: NodePort
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  labels:
-    app: codeserver
   name: codeserver
   namespace: develop
+  labels:
+    app: codeserver
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: codeserver
+  serviceName: codeserver
+  replicas: 1
+  volumeClaimTemplates:
+  - metadata:
+      name: codeserver-pvc
+    spec:
+      storageClassName: scw-bssd-retain
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 2Gi
   template:
     metadata:
       labels:
         app: codeserver
     spec:
+      securityContext:
+        fsGroup: 1000 
+      volumes:
+      - name: secret-volume
+        secret:
+          secretName: ssh-key-secret
       serviceAccountName: code-server
       automountServiceAccountToken: true
       containers:
-        - image: codercom/code-server:latest
+        - image: codercom/code-server
+          imagePullPolicy: Always
           name: codeserver
+          volumeMounts:
+            - name: secret-volume
+              readOnly: true
+              mountPath: "/home/coder/.ssh"
+            - name: codeserver-pvc
+              mountPath: /home/coder/work
           ports:
             - containerPort: 8080
           env:
@@ -49,3 +73,7 @@ spec:
               secretKeyRef:
                 name: code-server
                 key: password
+  
+    
+      
+     
