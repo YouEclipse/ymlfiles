@@ -56,7 +56,7 @@ spec:
       serviceAccountName: code-server
       automountServiceAccountToken: true
       containers:
-        - image: codercom/code-server
+        - image: golangcode/code-server
           imagePullPolicy: Always
           name: codeserver
           volumeMounts:
