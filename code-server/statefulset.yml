@@ -63,8 +63,11 @@ spec:
             - name: secret-volume
               readOnly: true
               mountPath: "/home/coder/.ssh"
+              #subpath: "home/coder/.ssh"
             - name: codeserver-pvc
               mountPath: /home/coder/work
+            - name: codeserver-pvc
+              mountPath: /home/coder/.local
           ports:
             - containerPort: 8080
           env:

@@ -39,6 +39,7 @@ spec:
     spec:
       containers:
         - image: youeclipse/golang.im:latest
+          imagePullPolicy: Always
           name: website
           ports:
             - containerPort: 80
