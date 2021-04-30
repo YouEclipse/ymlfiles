@@ -4,7 +4,7 @@ metadata:
   labels:
     app: blog
   name: blog
-  namespace: kube-system
+  namespace: golang-im
 spec:
   ports:
     - port: 80
@@ -17,7 +17,7 @@ spec:
       targetPort: 443
   selector:
     app: blog
-  type: NodePort
+  type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -25,7 +25,7 @@ metadata:
   labels:
     app: blog
   name: blog
-  namespace: kube-system
+  namespace: golang-im
 spec:
   replicas: 1
   selector:
@@ -41,4 +41,22 @@ spec:
         - image: youeclipse/blog:latest
           name: blog
           ports:
-            - containerPort: 80
+            - containerPort: 80 
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: blog-ingress
+  namespace: golang-im
+spec:
+  rules:
+    - host: blog.golang.im
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: blog
+                port: 
+                  number: 80

@@ -4,7 +4,7 @@ metadata:
   labels:
     app: plantuml
   name: plantuml
-  namespace: kube-system
+  namespace: golang-im
 spec:
   ports:
     - port: 80
@@ -25,7 +25,7 @@ metadata:
   labels:
     app: plantuml
   name: plantuml
-  namespace: kube-system
+  namespace: golang-im
 spec:
   replicas: 1
   selector:
@@ -42,5 +42,22 @@ spec:
           name: plantuml
           ports:
             - containerPort: 8080
-
           resources: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: blog-ingress
+  namespace: golang-im
+spec:
+  rules:
+    - host: plantuml.golang.im
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: plantuml
+                port: 
+                  number: 80

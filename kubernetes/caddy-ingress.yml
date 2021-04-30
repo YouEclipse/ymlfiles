@@ -1,8 +1,8 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: caddy-ingress
-  namespace: caddy-system
+  name: blog-ingress
+  namespace: golang-im
 spec:
   rules:
     - host: blog.golang.im
