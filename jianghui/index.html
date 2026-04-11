@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I'm jack.bruce.xin</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #0d1117;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      color: #c9d1d9;
+      padding: 20px;
+    }
+
+    .profile-card {
+      max-width: 960px;
+      width: 100%;
+      border: 1px solid #30363d;
+      border-radius: 16px;
+      padding: 48px 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      background-color: #161b22;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .profile-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .profile-title {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #e6edf3;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .github-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: #21262d;
+      color: #c9d1d9;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      margin-bottom: 28px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .github-btn:hover {
+      background-color: #30363d;
+      border-color: #8b949e;
+      color: #e6edf3;
+    }
+
+    .github-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .info-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .info-item {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #8b949e;
+    }
+
+    .info-item .emoji {
+      margin-right: 8px;
+    }
+
+    .info-item a {
+      color: #58a6ff;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .info-item a:hover {
+      color: #79c0ff;
+      text-decoration: underline;
+    }
+
+    .tech-stack {
+      color: #c9d1d9;
+    }
+
+    .tech-stack span {
+      margin: 0 4px;
+      color: #484f58;
+    }
+
+    .contact-info {
+      margin-top: 4px;
+    }
+
+    .contact-info .qq-label {
+      color: #8b949e;
+      margin-left: 8px;
+    }
+
+    .contact-info .qq-number {
+      color: #c9d1d9;
+    }
+
+    .contact-email {
+      display: block;
+      margin-top: 4px;
+      margin-left: 32px;
+    }
+
+    /* 右侧插画区域 */
+    .profile-illustration {
+      flex-shrink: 0;
+      width: 320px;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .illustration-container {
+      width: 100%;
+      height: 100%;
+      background: #f0f3f6;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* SVG 程序员插画 */
+    .coder-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .profile-card {
+        flex-direction: column;
+        padding: 32px 28px;
+        align-items: center;
+      }
+
+      .profile-title {
+        font-size: 1.8rem;
+      }
+
+      .profile-illustration {
+        width: 100%;
+        max-width: 320px;
+        height: 240px;
+        order: -1;
+      }
+
+      .info-item {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 12px;
+      }
+
+      .profile-card {
+        padding: 24px 20px;
+      }
+
+      .profile-title {
+        font-size: 1.5rem;
+      }
+
+      .info-item {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-card">
+    <!-- 左侧个人信息 -->
+    <div class="profile-info">
+      <h1 class="profile-title">I'm chuiyouwu 👋</h1>
+
+      <a href="https://github.com/YouEclipse" target="_blank" class="github-btn">
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        GitHub
+      </a>
+
+      <ul class="info-list">
+        <li class="info-item">
+          <span class="emoji">🎓</span>Graduated with <span class="emoji">🇨🇳</span> Computer Science
+        </li>
+        <li class="info-item">
+          <span class="emoji">⚡</span>
+          <span class="tech-stack">golang <span>/</span> nodejs <span>/</span> PHP <span>/</span> python <span>/</span> java <span>/</span> c++</span>
+        </li>
+     
+        <li class="info-item">
+          <span class="emoji">🏃</span>Basketball / Reading / Cats / FPS
+        </li>
+        <li class="info-item contact-info">
+          <span class="emoji">📫</span>How to reach me
+          <span class="qq-label">qq:</span> <span class="qq-number">401556211</span>
+          <span style="margin-left: 8px;">✉️</span>
+          <br>
+          <a href="mailto:401556211@qq.com" class="contact-email">401556211@qq.com</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 右侧程序员插画 -->
+    <div class="profile-illustration">
+      <div class="illustration-container">
+        <svg class="coder-svg" viewBox="0 0 400 350" xmlns="http://www.w3.org/2000/svg">
+          <!-- 背景装饰元素 -->
+          <defs>
+            <linearGradient id="screenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#667eea;stop-opacity:0.3"/>
+              <stop offset="100%" style="stop-color:#764ba2;stop-opacity:0.3"/>
+            </linearGradient>
+          </defs>
+
+          <!-- 背景 + 和 - 装饰 -->
+          <text x="40" y="60" fill="#c0c8d4" font-size="18" font-weight="300">+</text>
+          <text x="100" y="40" fill="#c0c8d4" font-size="14">— —</text>
+          <text x="180" y="55" fill="#c0c8d4" font-size="14">— —</text>
+          <text x="80" y="80" fill="#c0c8d4" font-size="18" font-weight="300">+</text>
+          <text x="250" y="320" fill="#c0c8d4" font-size="14">— —</text>
+          <text x="140" y="330" fill="#c0c8d4" font-size="14">— + —</text>
+          <text x="320" y="310" fill="#c0c8d4" font-size="14">— —</text>
+
+          <!-- 代码图标 </> -->
+          <circle cx="340" cy="60" r="28" fill="none" stroke="#a8b8cc" stroke-width="1.5" stroke-dasharray="6 4"/>
+          <text x="322" y="67" fill="#7c8da5" font-size="18" font-family="monospace">&lt;/&gt;</text>
+
+          <!-- 显示器 -->
+          <rect x="110" y="90" width="220" height="140" rx="10" fill="#2d333b" stroke="#444c56" stroke-width="2"/>
+          <!-- 显示器屏幕 -->
+          <rect x="120" y="100" width="200" height="110" rx="4" fill="#1c2128"/>
+          <!-- 窗口按钮 -->
+          <circle cx="135" cy="112" r="4" fill="#f85149"/>
+          <circle cx="150" cy="112" r="4" fill="#f0883e"/>
+          <circle cx="165" cy="112" r="4" fill="#3fb950"/>
+          <!-- 蓝色区域（浏览器内容） -->
+          <rect x="125" y="125" width="80" height="50" rx="3" fill="url(#screenGrad)" stroke="#444c56" stroke-width="0.5"/>
+          <!-- 代码行 -->
+          <text x="215" y="135" fill="#f85149" font-size="8" font-family="monospace">return err</text>
+          <text x="220" y="148" fill="#c9d1d9" font-size="8" font-family="monospace">func serve()</text>
+          <text x="225" y="161" fill="#3fb950" font-size="8" font-family="monospace">router.GET()</text>
+          <text x="230" y="174" fill="#c9d1d9" font-size="8" font-family="monospace">return nil</text>
+          <!-- 终端区域 -->
+          <rect x="215" y="180" width="100" height="25" rx="2" fill="#161b22"/>
+          <text x="220" y="191" fill="#f0883e" font-size="7" font-family="monospace">$ go run .</text>
+          <text x="220" y="200" fill="#3fb950" font-size="7" font-family="monospace">&gt; server ok</text>
+
+          <!-- 显示器支架 -->
+          <rect x="195" y="230" width="50" height="8" rx="2" fill="#444c56"/>
+          <rect x="180" y="238" width="80" height="5" rx="2" fill="#373e47"/>
+
+          <!-- 人物 - 头部 -->
+          <circle cx="200" cy="195" r="35" fill="#d4a574"/>
+          <!-- 耳机 -->
+          <path d="M165 185 Q165 160 200 155 Q235 160 235 185" fill="none" stroke="#3fb950" stroke-width="5"/>
+          <circle cx="165" cy="190" r="10" fill="#3fb950"/>
+          <circle cx="165" cy="190" r="6" fill="#2ea043"/>
+          <circle cx="235" cy="190" r="10" fill="#3fb950"/>
+          <circle cx="235" cy="190" r="6" fill="#2ea043"/>
+
+          <!-- 人物 - 身体 -->
+          <path d="M175 225 Q175 250 170 290 L230 290 Q225 250 225 225 Z" fill="#e8ecf0"/>
+          <!-- 衣领 -->
+          <path d="M185 225 L200 240 L215 225" fill="none" stroke="#c0c8d4" stroke-width="1.5"/>
+
+          <!-- 人物 - 手臂 -->
+          <path d="M175 235 Q155 250 150 270" fill="none" stroke="#e8ecf0" stroke-width="12" stroke-linecap="round"/>
+          <circle cx="150" cy="272" r="8" fill="#d4a574"/>
+          <path d="M225 235 Q245 250 250 270" fill="none" stroke="#e8ecf0" stroke-width="12" stroke-linecap="round"/>
+          <circle cx="250" cy="272" r="8" fill="#d4a574"/>
+
+          <!-- 键盘 -->
+          <rect x="140" y="268" width="160" height="8" rx="3" fill="#373e47"/>
+          <rect x="155" y="270" width="110" height="4" rx="1" fill="#444c56"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
