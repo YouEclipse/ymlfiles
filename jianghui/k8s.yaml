@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: profile-page
-          image: profile-page:latest
+          image: youeclipse/jianghui:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
